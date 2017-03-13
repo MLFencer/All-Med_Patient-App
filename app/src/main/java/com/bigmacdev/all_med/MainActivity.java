@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.net.Socket;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
-        checkPerson("Hello");
 
         month=0;
         day=0;
@@ -219,9 +215,9 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkPerson(String request){
         //Person person = new Person(firstName,lastName,year,month,day);
-        Client client = new Client("10.0.0.16", 8088);
+        Client client = new Client("9.9.9.126", 8088);
         client.runRequest(request);
-        return true;
+        return false;
     }
 
     private void spinSet(){
