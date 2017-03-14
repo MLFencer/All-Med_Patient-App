@@ -18,9 +18,14 @@ import android.widget.Toast;
 
 import com.bigmacdev.all_med.model.Person;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,30 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private int year, month, day;
     private String firstName, lastName;
     private boolean exist;
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("Main",System.currentTimeMillis()/1000000+"");
-        String serialized = "rO0ABXNyACJjb20uYmlnbWFjZGV2LmFsbF9tZWQubW9kZWwuUGVyc29uAAAAAAAAAAECAAZJAARkb2JESQAEZG9iTUkABGRvYllMAAVmTmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO0wABWxOYW1lcQB+AAFMAAVtTmFtZXEAfgABeHAAAAAEAAAABQAAB8l0AANib2J0AAR0ZXN0cA==";
-        try {
-            String fixed;
-            Person p = (Person) deserialize(serialized);
-            fixed=p.getName();
-            Log.d("Main",fixed);
-        }catch (Exception e){
-            Log.e("Main", e.getLocalizedMessage());
-        }
-
-
-
-
-
-
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        final StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         month=0;
@@ -87,9 +76,14 @@ public class MainActivity extends AppCompatActivity {
                             ySpin.setEnabled(false);
                             firstName=fNameTxt.getText().toString();
                             lastName=lNameTxt.getText().toString();
-                            exist= checkPerson(lastName+" "+firstName);
+                            person = new Person(firstName,lastName,year,month,day);
+                            try {
+                                exist = checkPerson(serialize(person));
+                            }catch (IOException e){
+                                Log.e("Main",e.getLocalizedMessage());
+                            }
                             if (exist){
-
+                                Toast.makeText(MainActivity.this, "True", Toast.LENGTH_SHORT).show();
                             }else{
                                 new AlertDialog.Builder(MainActivity.this)
                                         .setTitle("Record Alert")
@@ -241,8 +235,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean checkPerson(String request){
         //Person person = new Person(firstName,lastName,year,month,day);
         Client client = new Client("9.9.9.126", 8088);
-        client.runRequest(request);
-        return false;
+        String output= client.runRequest("patient:check:"+encryptData(request));
+        Log.d("Main", output);
+        return Boolean.parseBoolean(output);
     }
 
     private void spinSet(){
@@ -256,6 +251,72 @@ public class MainActivity extends AppCompatActivity {
         Object o = ois.readObject();
         ois.close();
         return o;
+    }
+
+    private static String serialize(Serializable o)throws IOException{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(o);
+        oos.close();
+        String output = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP|Base64.URL_SAFE);
+        Log.d("Main", output);
+        return output;
+    }
+
+    private String encryptData(String data){
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(encryptionKey());
+        return textEncryptor.encrypt(data);
+    }
+    private String decryptData(String data){
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(encryptionKey());
+        return textEncryptor.decrypt(data);
+    }
+
+    private static String encryptionKey(){
+        Long unixTime = System.currentTimeMillis()/10000000;
+        System.out.println(""+unixTime);
+        String keyGenSeed = unixTime+"";
+        String output="";
+        String keyGenSeedStart=keyGenSeed;
+        while (keyGenSeed.length()>0) {
+            char letter = keyGenSeed.charAt(0);
+            keyGenSeed=keyGenSeed.substring(1, keyGenSeed.length());
+            switch (letter){
+                case '1':
+                    output+="a";
+                    break;
+                case '2':
+                    output+="b";
+                    break;
+                case '3':
+                    output+="c";
+                    break;
+                case '4':
+                    output+="d";
+                    break;
+                case '5':
+                    output+="e";
+                    break;
+                case '6':
+                    output+="f";
+                    break;
+                case '7':
+                    output+="g";
+                    break;
+                case '8':
+                    output+="h";
+                    break;
+                case '9':
+                    output+="j";
+                    break;
+                case '0':
+                    output+="k";
+                    break;
+            }
+        }
+        return output+keyGenSeedStart+output;
     }
 
 }

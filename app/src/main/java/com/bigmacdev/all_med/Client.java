@@ -5,20 +5,14 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 
 public class Client {
-    String address, reponse;
+    String address, response;
     int port;
     PrintWriter out;
     BufferedReader in;
@@ -38,12 +32,13 @@ public class Client {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out.println(requestString);
             Log.d("Client", "Out.Write Executed.");
-            //in.read();
+            response=in.readLine();
+            Log.d("Client", response);
             socket.close();
         }catch(Exception e) {
             e.printStackTrace();
         }
 
-        return reponse;
+        return response;
     }
 }
