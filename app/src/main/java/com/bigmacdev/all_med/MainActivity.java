@@ -1,6 +1,7 @@
 package com.bigmacdev.all_med;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -78,12 +79,17 @@ public class MainActivity extends AppCompatActivity {
                             lastName=lNameTxt.getText().toString();
                             person = new Person(firstName,lastName,year,month,day);
                             try {
-                                exist = checkPerson(serialize(person));
+                                exist = checkPerson(person);
                             }catch (IOException e){
                                 Log.e("Main",e.getLocalizedMessage());
                             }
                             if (exist){
-                                Toast.makeText(MainActivity.this, "True", Toast.LENGTH_SHORT).show();
+                                Bundle bundle = new Bundle();
+                                Intent intent = new Intent();
+                                bundle.putSerializable("personObject", person);
+                                intent.putExtras(bundle);
+                                intent.setClass(MainActivity.this, passwordLogin.class);
+                                startActivity(intent);
                             }else{
                                 new AlertDialog.Builder(MainActivity.this)
                                         .setTitle("Record Alert")
@@ -91,7 +97,12 @@ public class MainActivity extends AppCompatActivity {
                                         .setPositiveButton("Create Record", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-
+                                                Bundle bundle = new Bundle();
+                                                Intent intent = new Intent();
+                                                bundle.putSerializable("personObject", person);
+                                                intent.putExtras(bundle);
+                                                intent.setClass(MainActivity.this, createPassword.class);
+                                                startActivity(intent);
                                             }
                                         })
                                         .setNegativeButton("Try Again", new DialogInterface.OnClickListener() {
@@ -232,10 +243,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "4");
     }
 
-    private boolean checkPerson(String request){
+    private boolean checkPerson(Person request)throws IOException{
         //Person person = new Person(firstName,lastName,year,month,day);
         Client client = new Client("9.9.9.126", 8088);
-        String output= client.runRequest("patient:check:"+encryptData(request));
+        String output= client.runRequest("check:"+client.encryptData(client.serialize(request)));
         Log.d("Main", output);
         return Boolean.parseBoolean(output);
     }
@@ -245,78 +256,5 @@ public class MainActivity extends AppCompatActivity {
         mSpin.setEnabled(false);
     }
 
-    private static Object deserialize(String s) throws IOException, ClassNotFoundException{
-        byte [] data = Base64.decode(s,0);
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-        Object o = ois.readObject();
-        ois.close();
-        return o;
-    }
-
-    private static String serialize(Serializable o)throws IOException{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(o);
-        oos.close();
-        String output = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP|Base64.URL_SAFE);
-        Log.d("Main", output);
-        return output;
-    }
-
-    private String encryptData(String data){
-        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(encryptionKey());
-        return textEncryptor.encrypt(data);
-    }
-    private String decryptData(String data){
-        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(encryptionKey());
-        return textEncryptor.decrypt(data);
-    }
-
-    private static String encryptionKey(){
-        Long unixTime = System.currentTimeMillis()/10000000;
-        System.out.println(""+unixTime);
-        String keyGenSeed = unixTime+"";
-        String output="";
-        String keyGenSeedStart=keyGenSeed;
-        while (keyGenSeed.length()>0) {
-            char letter = keyGenSeed.charAt(0);
-            keyGenSeed=keyGenSeed.substring(1, keyGenSeed.length());
-            switch (letter){
-                case '1':
-                    output+="a";
-                    break;
-                case '2':
-                    output+="b";
-                    break;
-                case '3':
-                    output+="c";
-                    break;
-                case '4':
-                    output+="d";
-                    break;
-                case '5':
-                    output+="e";
-                    break;
-                case '6':
-                    output+="f";
-                    break;
-                case '7':
-                    output+="g";
-                    break;
-                case '8':
-                    output+="h";
-                    break;
-                case '9':
-                    output+="j";
-                    break;
-                case '0':
-                    output+="k";
-                    break;
-            }
-        }
-        return output+keyGenSeedStart+output;
-    }
 
 }
