@@ -87,7 +87,7 @@ public class createPassword extends AppCompatActivity {
                 password.setEnabled(false);
                 passwordConfirm.setEnabled(false);
                 patient=new Patient(person);
-                Client client = new Client("9.9.9.126", 8088);
+                Client client = new Client();
                 patient.setPassword(client.hashPassword(password.getText().toString()));
                 try {
                     client.runRequest("new:"+client.encryptData(client.serialize(patient)));

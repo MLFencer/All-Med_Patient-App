@@ -27,9 +27,9 @@ public class Client {
     BufferedReader in;
 
 
-    Client(String add, int por){
-       address=add;
-        port=por;
+    Client(){
+       address="9.9.9.126";
+        port=8088;
     }
 
     protected String runRequest(String requestString){
@@ -53,7 +53,6 @@ public class Client {
 
     private static String encryptionKey(){
         Long unixTime = System.currentTimeMillis()/10000000;
-        System.out.println(""+unixTime);
         String keyGenSeed = unixTime+"";
         String output="";
         String keyGenSeedStart=keyGenSeed;
@@ -97,7 +96,8 @@ public class Client {
     }
 
     protected static Object deserialize(String s) throws IOException, ClassNotFoundException{
-        byte [] data = Base64.decode(s,0);
+        String rectifiedString = s.replace("\\","");
+        byte [] data = Base64.decode(rectifiedString,0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         Object o = ois.readObject();
         ois.close();
@@ -118,6 +118,12 @@ public class Client {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(password);
         return textEncryptor.encrypt(password);
+    }
+
+    protected String deHashPassword(String hashedPassword, String pword){
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(pword);
+        return textEncryptor.decrypt(hashedPassword);
     }
 
     protected String encryptData(String data){
