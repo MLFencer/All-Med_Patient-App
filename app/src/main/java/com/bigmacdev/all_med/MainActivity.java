@@ -5,6 +5,8 @@ import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.bigmacdev.all_med.model.Person;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +36,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d("Main",System.currentTimeMillis()/1000000+"");
+        String serialized = "rO0ABXNyACJjb20uYmlnbWFjZGV2LmFsbF9tZWQubW9kZWwuUGVyc29uAAAAAAAAAAECAAZJAARkb2JESQAEZG9iTUkABGRvYllMAAVmTmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO0wABWxOYW1lcQB+AAFMAAVtTmFtZXEAfgABeHAAAAAEAAAABQAAB8l0AANib2J0AAR0ZXN0cA==";
+        try {
+            String fixed;
+            Person p = (Person) deserialize(serialized);
+            fixed=p.getName();
+            Log.d("Main",fixed);
+        }catch (Exception e){
+            Log.e("Main", e.getLocalizedMessage());
+        }
+
+
+
+
+
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -223,6 +248,14 @@ public class MainActivity extends AppCompatActivity {
     private void spinSet(){
         dSpin.setEnabled(false);
         mSpin.setEnabled(false);
+    }
+
+    private static Object deserialize(String s) throws IOException, ClassNotFoundException{
+        byte [] data = Base64.decode(s,0);
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
+        Object o = ois.readObject();
+        ois.close();
+        return o;
     }
 
 }
