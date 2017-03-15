@@ -7,4 +7,5 @@
     <color name="colorEqual">#be40ff40</color>
     <color name="colorInEqual">#b7ff2600</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="background">#dfc1fffd</color>
 </resources>

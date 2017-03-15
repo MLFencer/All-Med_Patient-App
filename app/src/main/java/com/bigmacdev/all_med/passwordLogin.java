@@ -1,5 +1,6 @@
 package com.bigmacdev.all_med;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,7 +53,12 @@ public class passwordLogin extends AppCompatActivity {
                 } else{
                     login = runPassword(patient, pass);
                     if(login){
-                        Toast.makeText(passwordLogin.this,"Correct", Toast.LENGTH_SHORT).show();
+                        Bundle b = new Bundle();
+                        Intent intent = new Intent();
+                        b.putSerializable("patient", patientData);
+                        intent.putExtras(b);
+                        intent.setClass(passwordLogin.this, MenuActivity.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(passwordLogin.this, "Your password is incorrect", Toast.LENGTH_SHORT).show();
                         password.setText("");

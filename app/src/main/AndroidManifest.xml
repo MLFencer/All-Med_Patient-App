@@ -24,7 +24,8 @@
             android:name=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".passwordLogin" />
-        <activity android:name=".createPassword"></activity>
+        <activity android:name=".createPassword" />
+        <activity android:name=".editPersonalInfo"></activity>
     </application>
 
 </manifest>

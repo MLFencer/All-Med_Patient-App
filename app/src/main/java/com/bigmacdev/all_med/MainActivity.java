@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                        // Toast.makeText(MainActivity.this, "Last Name must be entered!", Toast.LENGTH_SHORT).show();
                     } else {
                         if (month!=0 && day!=0 && year!=0){
-                            Toast.makeText(MainActivity.this, "Checking for your Profile", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Checking for your Profile", Toast.LENGTH_SHORT).show();
                             submitBtn.setEnabled(false);
                             fNameTxt.setEnabled(false);
                             lNameTxt.setEnabled(false);

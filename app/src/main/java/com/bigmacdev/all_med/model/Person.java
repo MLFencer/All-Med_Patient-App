@@ -10,8 +10,8 @@ public class Person implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    protected String fName, mName, lName;
-    protected int dobY, dobM, dobD;
+    protected String fName="", mName="", lName="";
+    protected int dobY=0, dobM=0, dobD=0;
 
     public Person(){}
 
