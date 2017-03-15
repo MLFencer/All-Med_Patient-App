@@ -1,6 +1,9 @@
 package com.bigmacdev.all_med.model;
 
 
+import net.maritimecloud.internal.core.javax.json.Json;
+import net.maritimecloud.internal.core.javax.json.JsonObject;
+
 import java.io.Serializable;
 
 public class Person implements Serializable{
@@ -9,6 +12,8 @@ public class Person implements Serializable{
 
     protected String fName, mName, lName;
     protected int dobY, dobM, dobD;
+
+    public Person(){}
 
     public Person(String f, String l, int y, int m, int d){
         fName=f;
@@ -33,4 +38,6 @@ public class Person implements Serializable{
     public int getDobD() {return dobD;}
     public String getlName() {return lName;}
     public String getName(){return lName+"_"+fName;}
+
+
 }

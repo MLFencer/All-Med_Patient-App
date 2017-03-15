@@ -12,6 +12,10 @@ import android.widget.Toast;
 import com.bigmacdev.all_med.model.Patient;
 import com.bigmacdev.all_med.model.Person;
 
+import net.maritimecloud.internal.core.javax.json.Json;
+
+import java.io.StringReader;
+
 public class passwordLogin extends AppCompatActivity {
 
     private EditText password;
@@ -21,6 +25,7 @@ public class passwordLogin extends AppCompatActivity {
     private boolean login;
 
     private Person person;
+    private Patient patient;
     private Patient patientData;
 
     @Override
@@ -33,6 +38,7 @@ public class passwordLogin extends AppCompatActivity {
 
         Bundle bundle = this.getIntent().getExtras();
         person = (Person) bundle.getSerializable("personObject");
+        patient = new Patient(person);
 
         password = (EditText)findViewById(R.id.passwordLogin);
         submit = (Button)findViewById(R.id.submitBtnLogin);
@@ -44,11 +50,11 @@ public class passwordLogin extends AppCompatActivity {
                 if(pass.length()==0){
                     Toast.makeText(passwordLogin.this,"You must enter your password.",Toast.LENGTH_SHORT);
                 } else{
-                    login = runPassword(person, pass);
+                    login = runPassword(patient, pass);
                     if(login){
-                        Toast.makeText(passwordLogin.this,"Correct", Toast.LENGTH_SHORT);
+                        Toast.makeText(passwordLogin.this,"Correct", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(passwordLogin.this, "Your password is incorrect", Toast.LENGTH_SHORT);
+                        Toast.makeText(passwordLogin.this, "Your password is incorrect", Toast.LENGTH_SHORT).show();
                         password.setText("");
                     }
                 }
@@ -58,24 +64,29 @@ public class passwordLogin extends AppCompatActivity {
 
     }
 
-    private boolean runPassword(Person p, String pword){
+    private boolean runPassword(Patient p, String pword){
         Client client = new Client();
         try {
-            String request = "login:" + client.encryptData(client.serialize(p));
+            String request = "login:" + client.encryptData(p.toJson());
             String x = client.runRequest(request);
             if (x.equals("false")){
                 return false;
             }else{
                 x=client.decryptData(x);
-                patientData= (Patient)client.deserialize(x);
-                if (pword.equals(client.deHashPassword(patientData.getPassword(), pword))){
+                Log.d("Login Recieved: ",x);
+                patientData= new Patient (Json.createReader(new StringReader(x)).readObject());
+                String tempPass = client.deHashPassword(patientData.getPassword(),pword);
+                if (tempPass!=null){
+                    Log.d("Login",tempPass);
+                }
+                if (pword.equals(tempPass)){
                     return true;
                 }else{
                     return false;
                 }
             }
         }catch(Exception e){
-            Log.e("Login", e.getLocalizedMessage());
+            Log.e("Login", "Error in runPassword");
             return false;
         }
     }

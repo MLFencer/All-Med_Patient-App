@@ -27,4 +27,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
     compile 'org.jasypt:jasypt:1.9.2'
+    compile 'net.maritimecloud.3rdparty:org.glassfish.javax.json:1.0.4'
 }

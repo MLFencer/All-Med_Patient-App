@@ -53,6 +53,7 @@ public class Client {
 
     private static String encryptionKey(){
         Long unixTime = System.currentTimeMillis()/10000000;
+        System.out.println(unixTime);
         String keyGenSeed = unixTime+"";
         String output="";
         String keyGenSeedStart=keyGenSeed;

@@ -48,23 +48,6 @@ public class MainActivity extends AppCompatActivity {
         final StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String toDecrypt ="D9h39G9Bi0ZiFKDuZUxGqztV91UPgmdgtYXNK+Ksh9s2vL4uyTRTlgT9qvA6HtkigiUwQGzv/aZ/b+qD7SRzNhX/rH9hgKJkPANxjeUWFj4URnNzZ8nRpCby0EpEtZhJJxAb1LqZIUMfByLT+MJacagOdkXtDN59r7RBxKcqFjsaApPkO8/TVmouEwlTZa2YZ8z6+BM9tokOx3MT5bztTFiJE9ZY6COLS1vfROH1yf0VJR/w0TAEoWWJmTSU8BFqe22KEkAJ3+SfE7NRV3gVO1n4HnOIxdll2Gfb6tDz/AVrq64nBi5+hxtJuUz1g9b9tHmbqAiKDSxz/ap4ML1IbcuDJ9hRqHZnbys8nZtECFcGgH9CIBfnxD4XfmswZ35wgMSS7OVLcc/2m3479+jW/xKsYDNKP76a";
-        String codedByServer = "rO0ABXQA2HJPMEFCWE55QUNKamIyMHVZbWxuYldGalpHVjJMbUZzYkY5dFpXUXViVzlrWld3dVVHVnljMjl1QUFBQUFBQUFBQUVDQUFaSkFBUmtiMkpFU1FBRVpHOWlUVWtBQkdSdllsbE1BQVZtVG1GdFpYUUFFa3hxWVhaaEwyeGhibWN2VTNSeWFXNW5PMHdBQld4T1lXMWxjUUItQUFGTUFBVnRUbUZ0WlhFQWZnQUJlSEFBQUFBT0FBQUFDQUFBQjh0MEFBZHRhV05vWVdWc2RBQUViRzkwZEhBPQ==";
-        Client client = new Client();
-        try {
-            String decrypted = client.decryptData(toDecrypt);
-            Log.d("Test", "Decrypted: "+decrypted);
-            Log.d("Test", "Serialized Match: "+decrypted.equals(codedByServer));
-            Patient patient1 = (Patient) client.deserialize(codedByServer);
-            Log.d("Test",patient1.getName());
-            Patient patient = (Patient) client.deserialize(decrypted);
-            Log.d("Test", patient.getName());
-        }catch (Exception e){
-            Log.e("Test", e.getLocalizedMessage());
-        }
-
-
-
         month=0;
         day=0;
         year=0;
