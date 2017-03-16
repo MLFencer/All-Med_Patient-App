@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/editText11"
+                android:id="@+id/ecHomePhoneET"
                 android:hint="000-000-0000" />
 
             <Space
@@ -263,17 +263,18 @@
                 android:layout_marginTop="20dp" />
 
             <TextView
-                android:text="TextView"
+                android:text="Emergency Contact Cell Phone Number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView12" />
+                android:id="@+id/textview12" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/editText12" />
+                android:id="@+id/ecCellPhoneET"
+                android:hint="000-000-0000" />
 
 
         </LinearLayout>
