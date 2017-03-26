@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">All-Med</string>
     <string-array name="long_month">
-        <item></item>
+        <item>Day</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -35,7 +35,7 @@
         <item>31</item>
     </string-array>
     <string-array name="short_month">
-        <item></item>
+        <item>Day</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -68,7 +68,7 @@
         <item>30</item>
     </string-array>
     <string-array name="feb_month">
-        <item></item>
+        <item>Day</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -99,7 +99,7 @@
         <item>28</item>
     </string-array>
     <string-array name="feb_leap_month">
-        <item></item>
+        <item>Day</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -131,7 +131,7 @@
         <item>29</item>
     </string-array>
     <string-array name="months">
-        <item></item>
+        <item>Month</item>
         <item>January</item>
         <item>Febuary</item>
         <item>March</item>
@@ -146,7 +146,7 @@
         <item>December</item>
     </string-array>
     <string-array name="years">
-        <item></item>
+        <item>Year</item>
         <item>2017</item>
         <item>2016</item>
         <item>2015</item>

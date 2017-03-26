@@ -1,9 +1,7 @@
-package com.bigmacdev.all_med.model;
+package com.bigmacdev.all_med;
 
 import net.maritimecloud.internal.core.javax.json.Json;
 import net.maritimecloud.internal.core.javax.json.JsonObject;
-
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,6 +66,7 @@ public class Patient extends Person implements Serializable{
     //----------------------------------
 
     //---Constructors------------------------------------------------------------
+    public Patient(){}
     public Patient(Person p){
         super(p.getfName(),p.getlName(),p.getDobY(),p.getDobM(),p.getDobD());
     }

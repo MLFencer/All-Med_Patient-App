@@ -1,4 +1,4 @@
-package com.bigmacdev.all_med.model;
+package com.bigmacdev.all_med;
 
 
 import net.maritimecloud.internal.core.javax.json.Json;

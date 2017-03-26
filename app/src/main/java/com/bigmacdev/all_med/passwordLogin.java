@@ -10,9 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bigmacdev.all_med.model.Patient;
-import com.bigmacdev.all_med.model.Person;
-
 import net.maritimecloud.internal.core.javax.json.Json;
 
 import java.io.StringReader;

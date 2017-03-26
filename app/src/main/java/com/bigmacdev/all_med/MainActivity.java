@@ -1,65 +1,61 @@
 package com.bigmacdev.all_med;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.bigmacdev.all_med.model.Patient;
-import com.bigmacdev.all_med.model.Person;
+import net.maritimecloud.internal.core.javax.json.Json;
 
-import org.jasypt.util.text.BasicTextEncryptor;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.StringReader;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button submitBtn;
-    private Spinner mSpin, dSpin, ySpin;
-    private EditText fNameTxt, lNameTxt;
-    private int year, month, day;
-    private String firstName, lastName;
-    private boolean exist;
-    private Person person;
+    private Button enter, register;
+    private EditText username, password;
+    private Client client = new Client();
+    private Login credentials = new Login();
+    private Login login = new Login();
+    private Patient patient = new Patient();
+    private Boolean bool = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //Load Balancer---------------
+        //Client connects to load balancer then gets the proper port
+        //-------------------------
 
-        month=0;
-        day=0;
-        year=0;
+        enter = (Button) findViewById(R.id.loginSubmit);
+        register = (Button) findViewById(R.id.loginRegister);
+        username = (EditText) findViewById(R.id.loginUsername);
+        password = (EditText) findViewById(R.id.loginPassword);
 
-        submitBtn = (Button) findViewById(R.id.submitBtn);
-        fNameTxt = (EditText) findViewById(R.id.firstNameTxt);
-        lNameTxt = (EditText) findViewById(R.id.lastNameTxt);
-        mSpin = (Spinner) findViewById(R.id.monthSpin);
-        dSpin = (Spinner) findViewById(R.id.daySpin);
-        ySpin = (Spinner) findViewById(R.id.yearSpin);
+        register.setOnClickListener(registerButton);
+        enter.setOnClickListener(enterButton);
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
+        //submitBtn = (Button) findViewById(R.id.submitBtn);
+       // fNameTxt = (EditText) findViewById(R.id.firstNameTxt);
+       // lNameTxt = (EditText) findViewById(R.id.lastNameTxt);
+      //  mSpin = (Spinner) findViewById(R.id.monthSpin);
+      //  dSpin = (Spinner) findViewById(R.id.daySpin);
+      //  ySpin = (Spinner) findViewById(R.id.yearSpin);
+
+        /*submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if((fNameTxt.equals("")||fNameTxt.equals(null))){
@@ -241,21 +237,62 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Log.d("MainActivity", "4");
+        //Log.d("MainActivity", "4");*/
     }
 
-    private boolean checkPerson(Person request)throws IOException{
-        //Person person = new Person(firstName,lastName,year,month,day);
-        Client client = new Client();
-        String output= client.runRequest("check:"+client.encryptData(client.serialize(request)));
+
+    private View.OnClickListener registerButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("client", client);
+            intent.putExtras(bundle);
+            intent.setClass(MainActivity.this, CreateUser.class);
+            startActivity(intent);
+        }
+    };
+
+    private  View.OnClickListener enterButton = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            credentials.setLogin(username.getText().toString(), password.getText().toString());
+            bool=null;
+            register.setEnabled(false);
+            enter.setEnabled(false);
+            new Thread(){
+                public void run(){
+                    bool=checkPerson(credentials);
+                }
+            }.start();
+            while (bool==null){
+
+            }
+            if(bool){
+                Toast.makeText(MainActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(MainActivity.this, "Incorrect Username or Password.", Toast.LENGTH_SHORT).show();
+                enter.setEnabled(true);
+                register.setEnabled(true);
+                username.setText("");
+                password.setText("");
+            }
+        }
+    };
+
+
+    private boolean checkPerson(Login creds){
+        String output= client.runRequest("login:"+client.encryptData(creds.toJson()));
         Log.d("Main", output);
-        return Boolean.parseBoolean(output);
+        if(output.startsWith("false")){
+            return false;
+        }else{
+            output = client.decryptData(output);
+            login.loadLoginData(Json.createReader(new StringReader(output)).readObject());
+            if(creds.getPassword().equals(client.deHashPassword(login.getPassword(), creds.getPassword()))){
+                return true;
+            }
+        }
+        return false;
     }
-
-    private void spinSet(){
-        dSpin.setEnabled(false);
-        mSpin.setEnabled(false);
-    }
-
-
 }

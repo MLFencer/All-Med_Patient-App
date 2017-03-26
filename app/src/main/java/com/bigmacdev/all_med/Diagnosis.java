@@ -1,4 +1,4 @@
-package com.bigmacdev.all_med.model;
+package com.bigmacdev.all_med;
 
 /**
  * Created by dev on 3/14/2017.

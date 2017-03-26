@@ -20,7 +20,9 @@ import java.io.Serializable;
 import java.net.Socket;
 
 
-public class Client {
+public class Client implements Serializable{
+    private static final long serialVersionUID = 3L;
+
     String address, response;
     int port;
     PrintWriter out;
@@ -28,8 +30,12 @@ public class Client {
 
 
     Client(){
-       address="9.9.9.126";
+       address="10.0.0.16";
         port=8088;
+    }
+
+    public void setPort(int port){
+        this.port=port;
     }
 
     protected String runRequest(String requestString){
@@ -53,7 +59,7 @@ public class Client {
 
     private static String encryptionKey(){
         Long unixTime = System.currentTimeMillis()/10000000;
-        System.out.println(unixTime);
+        System.out.println("Time: "+unixTime);
         String keyGenSeed = unixTime+"";
         String output="";
         String keyGenSeedStart=keyGenSeed;

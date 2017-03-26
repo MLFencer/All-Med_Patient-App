@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,84 +8,64 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bigmacdev.all_med.MainActivity">
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-
-        android:layout_marginTop="31dp"
-        android:id="@+id/firstNameTxt"
-        android:hint="First Name"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-
-        android:id="@+id/lastNameTxt"
-        android:hint="Last Name"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false"
-        android:layout_below="@+id/firstNameTxt"
-        android:layout_marginTop="20dp" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
-        android:id="@+id/yearSpin"
-        android:layout_marginStart="33dp"
-        android:layout_below="@+id/lastNameTxt"
-        android:layout_alignParentStart="true"
-        android:layout_alignStart="@+id/lastNameTxt" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/monthSpin"
-        android:layout_alignTop="@+id/yearSpin"
-        android:layout_toStartOf="@+id/daySpin"
-        android:layout_marginEnd="55dp"
-        android:spinnerMode="dropdown"
-        android:layout_below="@+id/lastNameTxt"
-        android:layout_toEndOf="@+id/yearSpin"
-        android:layout_centerHorizontal="true" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/daySpin"
-        android:layout_alignTop="@+id/monthSpin"
-        android:layout_toEndOf="@+id/lastNameTxt"
-        android:layout_below="@+id/lastNameTxt" />
-
-    <Button
-        android:text="Enter"
-        android:layout_height="wrap_content"
-        android:id="@+id/submitBtn"
-        android:layout_width="wrap_content"
-
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/monthSpin"
-        android:layout_alignStart="@+id/lastNameTxt"
-        android:layout_alignEnd="@+id/lastNameTxt"
-        android:layout_marginTop="30dp" />
+    android:orientation="vertical"
+    tools:context="com.bigmacdev.all_med.MainActivity"
+    android:background="@color/background">
 
     <TextView
-        android:text="Loading"
-        android:layout_width="wrap_content"
+        android:text="Welcome!"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loadingTxtView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
+        android:id="@+id/textView12"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:textAlignment="center" />
 
-</RelativeLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+
+        android:layout_marginTop="30dp"
+        android:id="@+id/loginUsername"
+        android:hint="Username"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/loginPassword"
+        android:hint="Password"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:text="Register"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginRegister"
+            android:layout_weight=".3"
+            android:layout_width="20dp"
+            android:textSize="10sp" />
+
+        <Button
+            android:text="Enter"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginSubmit"
+
+            android:layout_weight="1"
+            android:layout_width="100dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
