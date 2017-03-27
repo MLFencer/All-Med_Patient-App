@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:hint="Month"
             android:textAlignment="center"
-            android:digits="2" />
+            android:maxLength="2" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -73,7 +73,8 @@
             android:layout_weight="1"
             android:hint="Day"
             android:textAlignment="center"
-            android:digits="2" />
+            android:numeric="integer"
+            android:maxLength="2" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -84,7 +85,8 @@
             android:layout_weight="1"
             android:hint="Year"
             android:textAlignment="center"
-            android:digits="4" />
+            android:numeric="integer"
+            android:maxLength="4" />
     </LinearLayout>
 
     <Button

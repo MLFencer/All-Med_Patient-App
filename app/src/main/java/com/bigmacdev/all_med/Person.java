@@ -30,6 +30,15 @@ public class Person implements Serializable{
         dobD=d;
         mName=mn;
     }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
     public String getfName(){
         return fName;
     }

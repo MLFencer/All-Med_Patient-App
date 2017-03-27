@@ -16,6 +16,7 @@ public class Patient extends Person implements Serializable{
 
     private String jsonString;
     private String gender="";
+    private String username="";
     private String password="";
     private String homeNumber="";
     private String cellNumber="";
@@ -32,6 +33,7 @@ public class Patient extends Person implements Serializable{
 
 
     //------Getters-----------
+    public String getUsername(){return username;}
     public String getGender(){return gender;}
     public String getPassword(){return password;}
     public String getHomeNumber(){return homeNumber;}
@@ -49,6 +51,7 @@ public class Patient extends Person implements Serializable{
     //------------------------------
 
     //------Setters--------------
+    public void setUsername(String s){username=s;}
     public void setGender(String s){gender=s;}
     public void setPassword(String password){this.password=password;}
     public void setHomeNumber(String s){homeNumber=s;}
@@ -65,6 +68,7 @@ public class Patient extends Person implements Serializable{
     public void seteCCellNumber(String s){eCCellNumber=s;}
     //----------------------------------
 
+
     //---Constructors------------------------------------------------------------
     public Patient(){}
     public Patient(Person p){
@@ -77,6 +81,7 @@ public class Patient extends Person implements Serializable{
     //-------Create Patient from Json---------
     public Patient(JsonObject jo){
         this.password=jo.getString("password");
+        this.username=jo.getString("username");
         JsonObject personalInfo = jo.getJsonObject("personal_info");
         JsonObject name = personalInfo.getJsonObject("name");
         this.fName=name.getString("first");
@@ -85,12 +90,27 @@ public class Patient extends Person implements Serializable{
         this.dobD=dob.getInt("day");
         this.dobM=dob.getInt("month");
         this.dobY=dob.getInt("year");
+        this.ssn=jo.getString("ssn");
+        JsonObject con = jo.getJsonObject("contact");
+        this.homeNumber=con.getString("home");
+        this.cellNumber=con.getString("cell");
+        this.email=con.getString("email");
+        this.address=con.getString("address");
+        this.city=con.getString("city");
+        this.state=con.getString("state");
+        this.zip=con.getString("zip");
+        JsonObject contact = jo.getJsonObject("emergency");
+        this.emergencyContact=contact.getString("contact");
+        this.emergencyContactRelationship=contact.getString("relationship");
+        this.eCCellNumber=contact.getString("cell");
+        this.eCHomeNumber=contact.getString("home");
     }
     //-----------------------------------------------------------------------------
 
     //-------Create Json------
-    public String toJson(){
+    public String toJsonString(){
         JsonObject jo = Json.createObjectBuilder()
+                .add("username",username)
                 .add("password",password)
                 .add("personal_info", Json.createObjectBuilder()
                         .add("name", Json.createObjectBuilder()

@@ -9,13 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CreateUser extends AppCompatActivity {
 
     private EditText password, passwordConfirm, username;
     private Button next;
     private Login login=new Login();
-    private Client client;
+    private Client client = new Client();
 
     private boolean pReady=false, pcReady=false, uReady=false;
     private Boolean bool = null;
@@ -23,9 +24,6 @@ public class CreateUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-
-        Bundle bundle = this.getIntent().getExtras();
-        client = (Client) bundle.getSerializable("client");
 
         username=(EditText)findViewById(R.id.createUsername);
         password=(EditText)findViewById(R.id.createPassword);
@@ -117,12 +115,12 @@ public class CreateUser extends AppCompatActivity {
                 }.start();
                 while(bool==null){}
                 if (bool){
+                    Toast.makeText(CreateUser.this, "Username already exists. Please try another one.", Toast.LENGTH_SHORT).show();
                     username.setEnabled(true);
                     uReady=false;
                 }else {
                     Intent intent = new Intent();
                     Bundle bundle1 = new Bundle();
-                    bundle1.putSerializable("client", client);
                     bundle1.putSerializable("login", login);
                     intent.putExtras(bundle1);
                     intent.setClass(CreateUser.this, CreatePersonalInfo.class);

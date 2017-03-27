@@ -55,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("client", client);
-            intent.putExtras(bundle);
             intent.setClass(MainActivity.this, CreateUser.class);
             startActivity(intent);
         }
