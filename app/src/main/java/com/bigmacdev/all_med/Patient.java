@@ -42,7 +42,7 @@ public class Patient extends Person implements Serializable{
     public String getCity(){return city.substring(0,0).toLowerCase()+city.substring(1,city.length());}
     public String getState(){return state;}
     public String getZip() {return zip;}
-    public String getSsn() {return ssn.substring(ssn.length()-4,ssn.length());}
+    public String getShortSsn() {return ssn.substring(ssn.length()-4,ssn.length());}
     public String getEmail(){return email;}
     public String getEmergencyContact(){return emergencyContact;}
     public String getEmergencyContactRelationship(){return emergencyContactRelationship;}
@@ -79,7 +79,7 @@ public class Patient extends Person implements Serializable{
     }
 
     //-------Create Patient from Json---------
-    public Patient(JsonObject jo){
+    public void loadData(JsonObject jo){
         this.password=jo.getString("password");
         this.username=jo.getString("username");
         JsonObject personalInfo = jo.getJsonObject("personal_info");

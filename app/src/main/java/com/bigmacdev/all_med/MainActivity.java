@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import net.maritimecloud.internal.core.javax.json.Json;
+import net.maritimecloud.internal.core.javax.json.JsonReader;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -76,7 +77,23 @@ public class MainActivity extends AppCompatActivity {
 
             }
             if(bool){
-                Toast.makeText(MainActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
+                bool=null;
+                new Thread(){
+                    @Override
+                    public void run() {
+                        bool=getRecord(login);
+                    }
+                }.start();
+                while(bool==null){}
+                if(bool){
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("patient",patient);
+                    bundle.putSerializable("login", login);
+                    intent.putExtras(bundle);
+                    intent.setClass(MainActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                }
             }else {
                 Toast.makeText(MainActivity.this, "Incorrect Username or Password.", Toast.LENGTH_SHORT).show();
                 enter.setEnabled(true);
@@ -88,14 +105,26 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    private boolean getRecord(Login creds){
+        String output = client.runRequest("get:"+client.encryptData(login.toJson()));
+        if(output.contains("false")){
+            return false;
+        } else{
+            output=client.decryptData(output);
+            patient.loadData(Json.createReader(new StringReader(output)).readObject());
+            return true;
+        }
+    }
+
+
     private boolean checkPerson(Login creds){
         String output= client.runRequest("login:"+client.encryptData(creds.toJson()));
-        Log.d("Main", output);
         if(output.startsWith("false")){
             return false;
         }else{
             output = client.decryptData(output);
             login.loadLoginData(Json.createReader(new StringReader(output)).readObject());
+            String x = client.deHashPassword(login.getPassword(), creds.getPassword());
             if(creds.getPassword().equals(client.deHashPassword(login.getPassword(), creds.getPassword()))){
                 return true;
             }

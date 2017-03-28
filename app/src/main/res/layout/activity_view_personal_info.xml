@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_create_personal_info2"
+    android:id="@+id/activity_view_personal_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.bigmacdev.all_med.CreatePersonalInfo2"
+    tools:context="com.bigmacdev.all_med.ViewPersonalInfo"
     android:background="@color/background">
 
     <LinearLayout
@@ -17,15 +17,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="Step 3 of 3"
+        <Button
+            android:text="Back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView15"
-            android:layout_weight="18"
-            android:textStyle="normal|bold|italic"
-            android:textAllCaps="true"
-            android:textAlignment="center" />
+            android:id="@+id/backViewPersonal"
+            android:layout_weight=".5" />
 
         <Space
             android:layout_width="wrap_content"
@@ -33,10 +30,10 @@
             android:layout_weight="18" />
 
         <Button
-            android:text="Finish"
+            android:text="Edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/savePersonalInfo2Btn"
+            android:id="@+id/editViewPersonal"
             android:layout_weight=".5" />
     </LinearLayout>
 
@@ -55,36 +52,19 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView1" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/createGender" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp" />
-
-            <TextView
                 android:text="Social Security Number/Identification Number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView7" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:ems="10"
-                android:id="@+id/createSSN"
-                android:hint="000000000"
-                android:numeric="integer"
-                android:maxLength="9" />
+                android:id="@+id/ssnViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -97,13 +77,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
                 android:ems="10"
-                android:id="@+id/createEmail"
-                android:hint="sample@sample.com" />
+                android:id="@+id/emailViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -116,13 +97,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/createHomePhone"
-                android:hint="000-000-0000" />
+                android:id="@+id/homeViewPersonal"
+                android:textAlignment="center"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"/>
 
             <Space
                 android:layout_width="match_parent"
@@ -135,13 +117,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/createCellPhone"
-                android:hint="000-000-0000" />
+                android:id="@+id/cellViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -154,13 +137,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/createAddress"
-                android:hint="000 Sample Dr" />
+                android:id="@+id/addressViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -173,13 +157,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/createCity"
-                android:hint="SampleVille" />
+                android:id="@+id/cityViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -192,13 +177,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
-                android:hint="State"
-                android:id="@+id/createState" />
+                android:id="@+id/stateViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -211,15 +197,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView8" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
                 android:ems="10"
-                android:id="@+id/createZip"
-                android:numeric="integer"
-                android:hint="00000"
-                android:maxLength="5" />
+                android:id="@+id/zipViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -232,13 +217,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/createEmergencyContact"
-                android:hint="First Last" />
+                android:id="@+id/contactViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -251,13 +237,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView10" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/createEmergencyRelationship"
-                android:hint="Brother/Mother/SO/ect" />
+                android:id="@+id/relationshipViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -270,13 +257,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView11" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/createEmergencyHomePhone"
-                android:hint="000-000-0000" />
+                android:id="@+id/contactHomeViewPersonal"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"
+                android:textAlignment="center" />
 
             <Space
                 android:layout_width="match_parent"
@@ -289,13 +277,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textview12" />
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/createEmergencyCellPhone"
-                android:hint="000-000-0000" />
+                android:id="@+id/contactCellViewPersonal"
+                android:textStyle="normal|bold"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
 
         </LinearLayout>

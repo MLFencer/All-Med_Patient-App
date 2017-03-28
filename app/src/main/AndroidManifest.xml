@@ -30,7 +30,8 @@
             android:name=".CreateUser"
             android:screenOrientation="portrait" />
         <activity android:name=".CreatePersonalInfo" />
-        <activity android:name=".CreatePersonalInfo2"></activity>
+        <activity android:name=".CreatePersonalInfo2" />
+        <activity android:name=".ViewPersonalInfo"></activity>
     </application>
 
 </manifest>

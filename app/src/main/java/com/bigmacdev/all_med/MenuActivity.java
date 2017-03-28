@@ -9,12 +9,15 @@ import android.widget.Button;
 public class MenuActivity extends AppCompatActivity {
 
     private Button personalInfo;
-
+    private Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        bundle = this.getIntent().getExtras();
+
 
         personalInfo = (Button)findViewById(R.id.personalInfoBtn);
 
@@ -22,7 +25,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(MenuActivity.this, editPersonalInfo.class);
+                intent.putExtras(bundle);
+                intent.setClass(MenuActivity.this, ViewPersonalInfo.class);
                 startActivity(intent);
             }
         });
