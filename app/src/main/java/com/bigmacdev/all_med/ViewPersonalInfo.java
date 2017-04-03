@@ -27,6 +27,8 @@ public class ViewPersonalInfo extends AppCompatActivity {
         patient = (Patient)bundle.getSerializable("patient");
         login = (Login)bundle.getSerializable("login");
 
+        Log.d("View", patient.getmName());
+
         edit = (Button)findViewById(R.id.editViewPersonal);
         back = (Button)findViewById(R.id.backViewPersonal);
         ssn = (TextView) findViewById(R.id.ssnViewPersonal);

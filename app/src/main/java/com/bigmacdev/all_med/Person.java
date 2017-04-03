@@ -34,11 +34,7 @@ public class Person implements Serializable{
     public void setmName(String mName) {
         this.mName = mName;
     }
-
-    public String getmName() {
-        return mName;
-    }
-
+    public String getmName() {return mName;}
     public String getfName(){
         return fName;
     }
@@ -47,6 +43,14 @@ public class Person implements Serializable{
     public int getDobD() {return dobD;}
     public String getlName() {return lName;}
     public String getName(){return lName+"_"+fName;}
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
 
 
 }

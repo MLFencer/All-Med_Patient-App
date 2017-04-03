@@ -31,7 +31,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".CreatePersonalInfo" />
         <activity android:name=".CreatePersonalInfo2" />
-        <activity android:name=".ViewPersonalInfo"></activity>
+        <activity android:name=".ViewPersonalInfo" />
+        <activity android:name=".PatientHistoryMenu"></activity>
     </application>
 
 </manifest>

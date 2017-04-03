@@ -2,6 +2,7 @@ package com.bigmacdev.all_med;
 
 import net.maritimecloud.internal.core.javax.json.Json;
 import net.maritimecloud.internal.core.javax.json.JsonObject;
+import net.maritimecloud.internal.core.javax.json.JsonObjectBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ public class Patient extends Person implements Serializable{
 
     private ArrayList<Diagnosis> diagnosis = new ArrayList<Diagnosis>();
     private ArrayList<Practice> approvedPractices = new ArrayList<Practice>();
-
-    private String jsonString;
+    private ArrayList<String>changes=new ArrayList<String>();
+    private String path="";
+    private String changedBy="";
     private String gender="";
     private String username="";
     private String password="";
@@ -33,6 +35,7 @@ public class Patient extends Person implements Serializable{
 
 
     //------Getters-----------
+    public String getPath(){return path;}
     public String getUsername(){return username;}
     public String getGender(){return gender;}
     public String getPassword(){return password;}
@@ -48,9 +51,12 @@ public class Patient extends Person implements Serializable{
     public String getEmergencyContactRelationship(){return emergencyContactRelationship;}
     public String geteCHomeNumber(){return eCHomeNumber;}
     public String geteCCellNumber(){return eCHomeNumber;}
+    public String getFullName(){return fName+" "+lName;}
+    public String getChangedBy(){return changedBy;}
     //------------------------------
 
     //------Setters--------------
+    public void setPath(String s){path=s;}
     public void setUsername(String s){username=s;}
     public void setGender(String s){gender=s;}
     public void setPassword(String password){this.password=password;}
@@ -66,7 +72,13 @@ public class Patient extends Person implements Serializable{
     public void setEmergencyContactRelationship(String s){emergencyContactRelationship=s;}
     public void seteCHomeNumber(String s){eCHomeNumber=s;}
     public void seteCCellNumber(String s){eCCellNumber=s;}
+    public void setChangedBy(String s){this.changedBy=s;}
     //----------------------------------
+
+    //-----Changes-------------
+    public void addChange(String change){
+        changes.add(change);
+    }
 
 
     //---Constructors------------------------------------------------------------
@@ -85,6 +97,9 @@ public class Patient extends Person implements Serializable{
         JsonObject personalInfo = jo.getJsonObject("personal_info");
         JsonObject name = personalInfo.getJsonObject("name");
         this.fName=name.getString("first");
+        if(name.containsKey("middle")){
+            this.mName=name.getString("middle");
+        }
         this.lName=name.getString("last");
         JsonObject dob = personalInfo.getJsonObject("dob");
         this.dobD=dob.getInt("day");
@@ -109,39 +124,53 @@ public class Patient extends Person implements Serializable{
 
     //-------Create Json------
     public String toJsonString(){
-        JsonObject jo = Json.createObjectBuilder()
-                .add("username",username)
-                .add("password",password)
-                .add("personal_info", Json.createObjectBuilder()
-                        .add("name", Json.createObjectBuilder()
-                                .add("first", fName)
-                                .add("middle", mName)
-                                .add("last", lName)
-                        )
-                        .add("dob", Json.createObjectBuilder()
-                                .add("day",dobD)
-                                .add("month",dobM)
-                                .add("year", dobY)
-                        )
+        JsonObjectBuilder job = Json.createObjectBuilder();
+        JsonObjectBuilder job2 = Json.createObjectBuilder();
+        JsonObjectBuilder job3 = Json.createObjectBuilder();
+        job.add("username",username)
+           .add("password",password)
+            .add("path", path)
+            .add("personal_info", Json.createObjectBuilder()
+                .add("name", Json.createObjectBuilder()
+                            .add("first", fName)
+                            .add("middle", mName)
+                            .add("last", lName)
+                )
+                .add("dob", Json.createObjectBuilder()
+                            .add("day",dobD)
+                            .add("month",dobM)
+                            .add("year", dobY)
+                )
 
-                )
-                .add("ssn",ssn)
-                .add("contact", Json.createObjectBuilder()
-                    .add("home",homeNumber)
-                    .add("cell",cellNumber)
-                    .add("email",email)
-                    .add("address",address)
-                    .add("city",city)
-                    .add("state",state)
-                    .add("zip",zip)
-                )
-                .add("emergency", Json.createObjectBuilder()
-                    .add("contact",emergencyContact)
-                    .add("relationship",emergencyContactRelationship)
-                    .add("home",eCHomeNumber)
-                    .add("cell",eCCellNumber)
-                )
-                .build();
+            )
+            .add("ssn",ssn)
+            .add("contact", Json.createObjectBuilder()
+                .add("home",homeNumber)
+                .add("cell",cellNumber)
+                .add("email",email)
+                .add("address",address)
+                .add("city",city)
+                .add("state",state)
+                .add("zip",zip)
+            )
+            .add("emergency", Json.createObjectBuilder()
+                .add("contact",emergencyContact)
+                .add("relationship",emergencyContactRelationship)
+                .add("home",eCHomeNumber)
+                .add("cell",eCCellNumber)
+            );
+        try {
+            if (!changedBy.equals("")) {
+                job2.add("updatedBy", changedBy);
+                for (int i = 0; i < changes.size(); i++) {
+                    job3.add("field" + i, changes.get(i));
+                }
+                job2.add("fieldsChanged", job3);
+                job.add("changes", job2);
+            }
+        }catch(Exception e){}
+        JsonObject jo;
+        jo= job.build();
         return jo.toString();
     }
     //------------------------------
