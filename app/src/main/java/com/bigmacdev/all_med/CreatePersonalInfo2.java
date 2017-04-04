@@ -86,7 +86,7 @@ public class CreatePersonalInfo2 extends AppCompatActivity {
         patient.setAddress(address.getText().toString());
         patient.setSsn(ssn.getText().toString());
         patient.setCity(city.getText().toString());
-        patient.setState(city.getText().toString());
+        patient.setState(state.getText().toString());
         patient.setGender(gender.getSelectedItem().toString());
         patient.setZip(zip.getText().toString());
         patient.setEmergencyContact(contact.getText().toString());

@@ -95,7 +95,7 @@ public class editPersonalInfo extends AppCompatActivity {
                 while (done==null){}
                 Log.d("Save", "After While");
                 Bundle bundle1 = new Bundle();
-                Log.d("Save1", patient.getmName());
+                patient.clearChanges();
                 bundle1.putSerializable("patient", patient);
                 intent.putExtras(bundle1);
                 intent.setClass(editPersonalInfo.this, ViewPersonalInfo.class);

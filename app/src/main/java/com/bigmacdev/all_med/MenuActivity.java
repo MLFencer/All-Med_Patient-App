@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Button personalInfo;
+    private Button personalInfo, medHist;
     private Bundle bundle = new Bundle();
 
     @Override
@@ -18,8 +18,10 @@ public class MenuActivity extends AppCompatActivity {
 
         bundle = this.getIntent().getExtras();
 
-
+        medHist = (Button)findViewById(R.id.medicalHistoryBtn);
         personalInfo = (Button)findViewById(R.id.personalInfoBtn);
+
+        medHist.setOnClickListener(medHistClick);
 
         personalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,4 +34,14 @@ public class MenuActivity extends AppCompatActivity {
         });
 
     }
+
+    private View.OnClickListener medHistClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+            intent.setClass(MenuActivity.this, PatientHistoryMenu.class);
+            startActivity(intent);
+        }
+    };
 }

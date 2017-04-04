@@ -75,6 +75,12 @@ public class Patient extends Person implements Serializable{
     public void setChangedBy(String s){this.changedBy=s;}
     //----------------------------------
 
+    //---------Remove Changes-------
+    public void clearChanges(){
+        changedBy="";
+        changes.clear();
+    }
+
     //-----Changes-------------
     public void addChange(String change){
         changes.add(change);
