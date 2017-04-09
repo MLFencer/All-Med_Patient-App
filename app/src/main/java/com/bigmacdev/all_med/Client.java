@@ -30,7 +30,7 @@ public class Client implements Serializable{
 
 
     Client(){
-       address="chimeragaming.org";
+       address="10.0.0.34";
         port=8088;
     }
 
@@ -100,25 +100,6 @@ public class Client implements Serializable{
             }
         }
         return output+keyGenSeedStart+output;
-    }
-
-    protected static Object deserialize(String s) throws IOException, ClassNotFoundException{
-        String rectifiedString = s.replace("\\","");
-        byte [] data = Base64.decode(rectifiedString,0);
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-        Object o = ois.readObject();
-        ois.close();
-        return o;
-    }
-
-    protected static String serialize(Serializable o)throws IOException{
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(o);
-        oos.close();
-        String output = Base64.encodeToString(baos.toByteArray(),Base64.NO_WRAP|Base64.URL_SAFE);
-        Log.d("Main", output);
-        return output;
     }
 
     protected String hashPassword(String password){
