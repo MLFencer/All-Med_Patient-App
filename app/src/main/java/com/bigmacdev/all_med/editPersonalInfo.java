@@ -78,7 +78,7 @@ public class editPersonalInfo extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent();
             if (checkForChanges()){
-                Toast.makeText(editPersonalInfo.this, "Change Detected", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(editPersonalInfo.this, "Change Detected", Toast.LENGTH_SHORT).show();
                 Log.d("Save", "Change Detected");
                 patient.setChangedBy(patient.getFullName());
                 Log.d("Save", "Change made by: "+patient.getChangedBy());

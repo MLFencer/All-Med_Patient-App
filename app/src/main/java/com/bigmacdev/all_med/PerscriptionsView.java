@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.bigmacdev.all_med.dummy.DummyContent;
 
 public class PerscriptionsView extends AppCompatActivity implements perscriptionFragment.OnListFragmentInteractionListener{
 

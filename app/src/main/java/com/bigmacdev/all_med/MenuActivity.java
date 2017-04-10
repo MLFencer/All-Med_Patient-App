@@ -10,6 +10,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private Button personalInfo, medHist, logout, perscriptions, share;
     private Bundle bundle;
+    private Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         bundle = this.getIntent().getExtras();
+        patient = (Patient)bundle.getSerializable("patient");
 
         perscriptions = (Button)findViewById(R.id.perscriptionsMainMenu);
         share = (Button)findViewById(R.id.shareMainMenu);
@@ -28,18 +30,21 @@ public class MenuActivity extends AppCompatActivity {
         logout.setOnClickListener(logoutClick);
         share.setOnClickListener(shareClick);
         perscriptions.setOnClickListener(perscriptionsClick);
-
-        personalInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtras(bundle);
-                intent.setClass(MenuActivity.this, ViewPersonalInfo.class);
-                startActivity(intent);
-            }
-        });
+        personalInfo.setOnClickListener(personalClick);
 
     }
+
+    private View.OnClickListener personalClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            Bundle bundle1 = new Bundle();
+            bundle1.putSerializable("patient", patient);
+            intent.putExtras(bundle1);
+            intent.setClass(MenuActivity.this, ViewPersonalInfo.class);
+            startActivity(intent);
+        }
+    };
 
     private View.OnClickListener shareClick = new View.OnClickListener() {
         @Override
@@ -53,7 +58,9 @@ public class MenuActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent();
             intent.setClass(MenuActivity.this, PerscriptionsView.class);
-            intent.putExtras(bundle);
+            Bundle bundle1 = new Bundle();
+            bundle1.putSerializable("patient", patient);
+            intent.putExtras(bundle1);
             startActivity(intent);
         }
     };

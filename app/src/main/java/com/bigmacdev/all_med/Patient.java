@@ -87,6 +87,26 @@ public class Patient extends Person implements Serializable{
         others.add(thing);
     }
 
+    public void setOthers(ArrayList<String> a){
+        this.others=a;
+    }
+
+    public void setEyeProblems(ArrayList<String> a){
+        this.eyeProblems=a;
+    }
+
+    public void setCancers(ArrayList<String> a){
+        this.cancers=a;
+    }
+
+    public void setStds(ArrayList<String> a){
+        this.stds=a;
+    }
+
+    public void setChanges(ArrayList<String> a){
+        this.changes=a;
+    }
+
 
     public boolean isDiabetes() {
         return diabetes;
@@ -380,7 +400,7 @@ public class Patient extends Person implements Serializable{
                 int i=0;
                 while (true){
                     if(can.containsKey("cancer"+i)){
-                        eyeProblems.add(can.getString("cancer"+i));
+                        cancers.add(can.getString("cancer"+i));
                     }else{
                         break;
                     }
@@ -392,7 +412,7 @@ public class Patient extends Person implements Serializable{
                 int i=0;
                 while (true){
                     if(oth.containsKey("other"+i)){
-                        eyeProblems.add(oth.getString("other"+i));
+                        others.add(oth.getString("other"+i));
                     }else{
                         break;
                     }

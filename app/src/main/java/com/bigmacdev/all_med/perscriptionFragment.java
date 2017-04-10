@@ -10,18 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bigmacdev.all_med.dummy.DummyContent;
-import com.bigmacdev.all_med.dummy.DummyContent.DummyItem;
-
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
+
 public class perscriptionFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
