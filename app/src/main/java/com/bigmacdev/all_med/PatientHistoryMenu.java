@@ -65,7 +65,10 @@ public class PatientHistoryMenu extends AppCompatActivity {
     private View.OnClickListener conditionsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(PatientHistoryMenu.this, "Go to Conditions", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setClass(PatientHistoryMenu.this, Conditions.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     };
 

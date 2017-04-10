@@ -12,7 +12,10 @@ import java.util.ArrayList;
 public class Patient extends Person implements Serializable{
     private static final long serialVersionUID = 2L;
 
-    private ArrayList<Diagnosis> diagnosis = new ArrayList<Diagnosis>();
+    private ArrayList<String> eyeProblems = new ArrayList<String>();
+    private ArrayList<String> cancers = new ArrayList<String>();
+    private ArrayList<String> stds = new ArrayList<String>();
+    private ArrayList<String> others = new ArrayList<String>();
     private ArrayList<Practice> approvedPractices = new ArrayList<Practice>();
     private ArrayList<String>changes=new ArrayList<String>();
     private String path="";
@@ -32,7 +35,210 @@ public class Patient extends Person implements Serializable{
     private String emergencyContactRelationship="";
     private String eCHomeNumber="";
     private String eCCellNumber="";
+    private boolean diabetes = false;
+    private boolean kidneyDisease = false;
+    private boolean stroke = false;
+    private boolean tuberculosis = false;
+    private boolean arrythmia = false;
+    private boolean highBloodPressure = false;
+    private boolean hepatitis = false;
+    private boolean depression = false;
+    private boolean coronaryArteryDisease = false;
+    private boolean asthma = false;
+    private boolean thyroidDisease = false;
+    private boolean emphasyma = false;
+    private boolean congestiveHeartFailure = false;
+    private boolean heartAttack = false;
+    private boolean seizures = false;
+    private boolean eyeProblem = false;
+    private boolean std = false;
+    private boolean cancer = false;
+    private boolean other = false;
 
+    public ArrayList<String> getEyeProblems(){
+        return eyeProblems;
+    }
+
+    public ArrayList<String> getCancers(){
+        return cancers;
+    }
+
+    public ArrayList<String> getStds(){
+        return stds;
+    }
+
+    public ArrayList<String> getOthers(){
+        return others;
+    }
+
+    public void addEyeProblems(String problem){
+        eyeProblems.add(problem);
+    }
+
+    public void addCancers(String type){
+        cancers.add(type);
+    }
+
+    public void addStds(String type){
+        stds.add(type);
+    }
+
+    public void addOthers(String thing){
+        others.add(thing);
+    }
+
+
+    public boolean isDiabetes() {
+        return diabetes;
+    }
+
+    public void setDiabetes(boolean diabetes) {
+        this.diabetes = diabetes;
+    }
+
+    public boolean isKidneyDisease() {
+        return kidneyDisease;
+    }
+
+    public void setKidneyDisease(boolean kidneyDisease) {
+        this.kidneyDisease = kidneyDisease;
+    }
+
+    public boolean isStroke() {
+        return stroke;
+    }
+
+    public void setStroke(boolean stroke) {
+        this.stroke = stroke;
+    }
+
+    public boolean isTuberculosis() {
+        return tuberculosis;
+    }
+
+    public void setTuberculosis(boolean tuberculosis) {
+        this.tuberculosis = tuberculosis;
+    }
+
+    public boolean isArrythmia() {
+        return arrythmia;
+    }
+
+    public void setArrythmia(boolean arrythmia) {
+        this.arrythmia = arrythmia;
+    }
+
+    public boolean isHighBloodPressure() {
+        return highBloodPressure;
+    }
+
+    public void setHighBloodPressure(boolean highBloodPressure) {
+        this.highBloodPressure = highBloodPressure;
+    }
+
+    public boolean isHepatitis() {
+        return hepatitis;
+    }
+
+    public void setHepatitis(boolean hepatitis) {
+        this.hepatitis = hepatitis;
+    }
+
+    public boolean isDepression() {
+        return depression;
+    }
+
+    public void setDepression(boolean depression) {
+        this.depression = depression;
+    }
+
+    public boolean isCoronaryArteryDisease() {
+        return coronaryArteryDisease;
+    }
+
+    public void setCoronaryArteryDisease(boolean coronaryArteryDisease) {
+        this.coronaryArteryDisease = coronaryArteryDisease;
+    }
+
+    public boolean isAsthma() {
+        return asthma;
+    }
+
+    public void setAsthma(boolean asthma) {
+        this.asthma = asthma;
+    }
+
+    public boolean isThyroidDisease() {
+        return thyroidDisease;
+    }
+
+    public void setThyroidDisease(boolean thyroidDisease) {
+        this.thyroidDisease = thyroidDisease;
+    }
+
+    public boolean isEmphasyma() {
+        return emphasyma;
+    }
+
+    public void setEmphasyma(boolean emphasyma) {
+        this.emphasyma = emphasyma;
+    }
+
+    public boolean isCongestiveHeartFailure() {
+        return congestiveHeartFailure;
+    }
+
+    public void setCongestiveHeartFailure(boolean congestiveHeartFailure) {
+        this.congestiveHeartFailure = congestiveHeartFailure;
+    }
+
+    public boolean isHeartAttack() {
+        return heartAttack;
+    }
+
+    public void setHeartAttack(boolean heartAttack) {
+        this.heartAttack = heartAttack;
+    }
+
+    public boolean isSeizures() {
+        return seizures;
+    }
+
+    public void setSeizures(boolean seizures) {
+        this.seizures = seizures;
+    }
+
+    public boolean isEyeProblem() {
+        return eyeProblem;
+    }
+
+    public void setEyeProblem(boolean eyeProblem) {
+        this.eyeProblem = eyeProblem;
+    }
+
+    public boolean isStd() {
+        return std;
+    }
+
+    public void setStd(boolean std) {
+        this.std = std;
+    }
+
+    public boolean isCancer() {
+        return cancer;
+    }
+
+    public void setCancer(boolean cancer) {
+        this.cancer = cancer;
+    }
+
+    public boolean isOther() {
+        return other;
+    }
+
+    public void setOther(boolean other) {
+        this.other = other;
+    }
 
     //------Getters-----------
     public String getPath(){return path;}
@@ -42,7 +248,7 @@ public class Patient extends Person implements Serializable{
     public String getHomeNumber(){return homeNumber;}
     public String getCellNumber(){return cellNumber;}
     public String getAddress() {return address;}
-    public String getCity(){return city.substring(0,0).toLowerCase()+city.substring(1,city.length());}
+    public String getCity(){return city;}
     public String getState(){return state;}
     public String getZip() {return zip;}
     public String getShortSsn() {return ssn.substring(ssn.length()-4,ssn.length());}
@@ -125,6 +331,75 @@ public class Patient extends Person implements Serializable{
         this.emergencyContactRelationship=contact.getString("relationship");
         this.eCCellNumber=contact.getString("cell");
         this.eCHomeNumber=contact.getString("home");
+        if(jo.containsKey("conditions")){
+            JsonObject condit = jo.getJsonObject("conditions");
+            this.diabetes=condit.getBoolean("diabetes");
+            this.kidneyDisease=condit.getBoolean("kidneyDisease");
+            this.stroke=condit.getBoolean("stroke");
+            this.tuberculosis=condit.getBoolean("tuberculosis");
+            this.arrythmia=condit.getBoolean("arrythmia");
+            this.highBloodPressure=condit.getBoolean("highBloodPressure");
+            this.hepatitis=condit.getBoolean("hepatitis");
+            this.depression=condit.getBoolean("depression");
+            this.coronaryArteryDisease=condit.getBoolean("coronaryArteryDisease");
+            this.asthma=condit.getBoolean("asthma");
+            this.thyroidDisease=condit.getBoolean("thyroidDisease");
+            this.emphasyma=condit.getBoolean("emphasyma");
+            this.congestiveHeartFailure=condit.getBoolean("congestiveHeartFailure");
+            this.seizures=condit.getBoolean("seizures");
+            this.eyeProblem=condit.getBoolean("eyeProblem");
+            this.std=condit.getBoolean("std");
+            this.cancer=condit.getBoolean("cancer");
+            this.other=condit.getBoolean("other");
+            if(eyeProblem){
+                JsonObject eye = condit.getJsonObject("eyeProblems");
+                int i=0;
+                while (true){
+                    if(eye.containsKey("eyeProblem"+i)){
+                        eyeProblems.add(eye.getString("eyeProblem"+i));
+                    }else{
+                        break;
+                    }
+                    i++;
+                }
+            }
+            if(std){
+                JsonObject sts = condit.getJsonObject("stds");
+                int i=0;
+                while (true){
+                    if(sts.containsKey("std"+i)){
+                        stds.add(sts.getString("std"+i));
+                    }else{
+                        break;
+                    }
+                    i++;
+                }
+            }
+            if(cancer){
+                JsonObject can = condit.getJsonObject("cancers");
+                int i=0;
+                while (true){
+                    if(can.containsKey("cancer"+i)){
+                        eyeProblems.add(can.getString("cancer"+i));
+                    }else{
+                        break;
+                    }
+                    i++;
+                }
+            }
+            if(other){
+                JsonObject oth = condit.getJsonObject("others");
+                int i=0;
+                while (true){
+                    if(oth.containsKey("other"+i)){
+                        eyeProblems.add(oth.getString("other"+i));
+                    }else{
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
     }
     //-----------------------------------------------------------------------------
 
@@ -133,6 +408,7 @@ public class Patient extends Person implements Serializable{
         JsonObjectBuilder job = Json.createObjectBuilder();
         JsonObjectBuilder job2 = Json.createObjectBuilder();
         JsonObjectBuilder job3 = Json.createObjectBuilder();
+        JsonObjectBuilder job4 = Json.createObjectBuilder();
         job.add("username",username)
            .add("password",password)
             .add("path", path)
@@ -175,6 +451,57 @@ public class Patient extends Person implements Serializable{
                 job.add("changes", job2);
             }
         }catch(Exception e){}
+        job4.add("diabetes", diabetes);
+        job4.add("kidneyDisease", kidneyDisease);
+        job4.add("stroke", stroke);
+        job4.add("tuberculosis", tuberculosis);
+        job4.add("arrythmia", arrythmia);
+        job4.add("highBloodPressure", highBloodPressure);
+        job4.add("hepatitis", hepatitis);
+        job4.add("depression", depression);
+        job4.add("coronaryArteryDisease", coronaryArteryDisease);
+        job4.add("asthma", asthma);
+        job4.add("thyroidDisease", thyroidDisease);
+        job4.add("emphasyma", emphasyma);
+        job4.add("congestiveHeartFailure", congestiveHeartFailure);
+        job4.add("seizures", seizures);
+        job4.add("eyeProblem", eyeProblem);
+        job4.add("std", std);
+        job4.add("cancer", cancer);
+        job4.add("other", other);
+
+        if(eyeProblem){
+            JsonObjectBuilder job5 = Json.createObjectBuilder();
+            for(int i=0; i<eyeProblems.size(); i++){
+                job5.add("eyeProblem"+i, eyeProblems.get(i));
+            }
+            job4.add("eyeProblems",job5);
+        }
+        if(std){
+            JsonObjectBuilder job5 = Json.createObjectBuilder();
+            for(int i=0; i<stds.size(); i++){
+                job5.add("std"+i, stds.get(i));
+            }
+            job4.add("stds",job5);
+        }
+        if(cancer){
+            JsonObjectBuilder job5 = Json.createObjectBuilder();
+            for(int i=0; i<cancers.size(); i++){
+                job5.add("cancer"+i, cancers.get(i));
+            }
+            job4.add("cancers",job5);
+        }
+        if(other){
+            JsonObjectBuilder job5 = Json.createObjectBuilder();
+            for(int i=0; i<others.size(); i++){
+                job5.add("other"+i, others.get(i));
+            }
+            job4.add("others",job5);
+        }
+        job.add("conditions",job4);
+
+
+
         JsonObject jo;
         jo= job.build();
         return jo.toString();

@@ -32,7 +32,9 @@
         <activity android:name=".CreatePersonalInfo" />
         <activity android:name=".CreatePersonalInfo2" />
         <activity android:name=".ViewPersonalInfo" />
-        <activity android:name=".PatientHistoryMenu"></activity>
+        <activity android:name=".PatientHistoryMenu" />
+        <activity android:name=".PerscriptionsView" />
+        <activity android:name=".Conditions"></activity>
     </application>
 
 </manifest>

@@ -23,16 +23,22 @@
         android:id="@+id/personalInfoBtn" />
 
     <Button
-        android:text="Insurance Information"
+        android:id="@+id/perscriptionsMainMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/InsuraceInfoBtn" />
+        android:text="Perscriptions" />
 
     <Button
         android:text="Medical History"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/medicalHistoryBtn" />
+
+    <Button
+        android:id="@+id/shareMainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Give Access to Records" />
 
     <Space
         android:layout_width="match_parent"
