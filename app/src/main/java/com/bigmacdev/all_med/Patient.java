@@ -12,6 +12,13 @@ import java.util.ArrayList;
 public class Patient extends Person implements Serializable{
     private static final long serialVersionUID = 2L;
 
+
+    //---Temporary Variables-------
+    private Boolean done = null;
+    private String scripts = "";
+    private Client client;
+
+    private ArrayList<Perscription> perscriptions = new ArrayList<Perscription>();
     private ArrayList<String> eyeProblems = new ArrayList<String>();
     private ArrayList<String> cancers = new ArrayList<String>();
     private ArrayList<String> stds = new ArrayList<String>();
@@ -54,6 +61,8 @@ public class Patient extends Person implements Serializable{
     private boolean std = false;
     private boolean cancer = false;
     private boolean other = false;
+
+    public ArrayList<Perscription> getPerscriptions() {return perscriptions;}
 
     public ArrayList<String> getEyeProblems(){
         return eyeProblems;
@@ -301,6 +310,24 @@ public class Patient extends Person implements Serializable{
     public void setChangedBy(String s){this.changedBy=s;}
     //----------------------------------
 
+    //-----------get perscriptions-----------
+    public void loadPerscriptions(){
+        done = null;
+        client = new Client();
+        new Thread(){
+            @Override
+            public void run() {
+                scripts = client.runRequest("scripts:"+client.encryptData(path));
+                done=true;
+            }
+        }.start();
+        while (done==null){}
+        scripts = client.decryptData(scripts);
+        //Todo: convert string to json and get data from json
+
+    }
+
+
     //---------Remove Changes-------
     public void clearChanges(){
         changedBy="";
@@ -326,6 +353,7 @@ public class Patient extends Person implements Serializable{
     public void loadData(JsonObject jo){
         this.password=jo.getString("password");
         this.username=jo.getString("username");
+        this.path=jo.getString("path");
         JsonObject personalInfo = jo.getJsonObject("personal_info");
         JsonObject name = personalInfo.getJsonObject("name");
         this.fName=name.getString("first");
