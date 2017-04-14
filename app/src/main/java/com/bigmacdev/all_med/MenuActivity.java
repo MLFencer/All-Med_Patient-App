@@ -50,6 +50,11 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent();
+            Bundle b = new Bundle();
+            b.putSerializable("patient", patient);
+            intent.putExtras(b);
+            intent.setClass(MenuActivity.this, ShareRecords.class);
+            startActivity(intent);
         }
     };
 

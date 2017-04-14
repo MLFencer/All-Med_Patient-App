@@ -34,7 +34,8 @@
         <activity android:name=".ViewPersonalInfo" />
         <activity android:name=".PatientHistoryMenu" />
         <activity android:name=".PerscriptionsView" />
-        <activity android:name=".Conditions"></activity>
+        <activity android:name=".Conditions" />
+        <activity android:name=".ShareRecords"></activity>
     </application>
 
 </manifest>
