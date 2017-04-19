@@ -30,7 +30,7 @@ public class Client implements Serializable{
 
 
     Client(){
-       address="10.0.0.33";
+       address="10.0.0.34";
         port=8088;
     }
 
